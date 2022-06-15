@@ -1,0 +1,10 @@
+---
+applications:
+- name: scheduler
+  path: .
+  memory: 128M
+  buildpacks:
+    - nodejs_buildpack
+  services:
+    - scheduler_uaa
+    - scheduler_job
