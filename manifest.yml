@@ -24,3 +24,8 @@ applications:
   services:
     - scheduler_uaa
     - scheduler_job
+  env:
+    SAP_JWT_TRUST_ACL: >
+      [
+        {"clientid":"*", "identityzone":"*"}
+      ]
