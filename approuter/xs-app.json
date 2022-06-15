@@ -2,7 +2,7 @@
    "authenticationMethod": "route",
    "routes": [
       {
-         "source": "^/service/runjob/(.*)$",
+         "source": "^/service/runjob(.*)$",
          "target": "$1",
          "destination": "srv_api",
          "authenticationType": "xsuaa"
