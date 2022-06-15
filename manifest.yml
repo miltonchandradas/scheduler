@@ -1,7 +1,23 @@
 ---
 applications:
+- name: schedulerapprouter
+  path: ./approuter
+  memory: 128M
+  buildpacks:
+    - nodejs_buildpack
+  services:
+    - scheduler_uaa
+  env:
+    destinations: >
+      [
+          {
+              "name": "srv_api",
+              "url": "https://scheduler.cfapps.eu10-004.hana.ondemand.com/runjob",
+              "forwardAuthToken": true
+          }
+      ]
 - name: scheduler
-  path: .
+  path: ./scheduler
   memory: 128M
   buildpacks:
     - nodejs_buildpack

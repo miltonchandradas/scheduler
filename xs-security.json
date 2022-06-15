@@ -1,15 +1,29 @@
 {
-    "xsappname" : "scheduler-team3601",
-    "tenant-mode" : "dedicated",
-    "scopes": [{
-        "name": "$XSAPPNAME.schedulerscope",
-        "description": "Users of my great app need this special role",
-        "grant-as-authority-to-apps": ["$XSSERVICENAME(scheduler_job)"]
-    }],
-    "role-templates": [ { 
-        "name"                : "schedulerroletemplate", 
-        "description"         : "Users of my great app need this special role", 
-        "default-role-name"   : "Scheduler Role",
-        "scope-references"    : ["$XSAPPNAME.schedulerscope"]
-    }]
-  }
+   "xsappname": "scheduler-team3601",
+   "tenant-mode": "dedicated",
+   "scopes": [
+      {
+         "name": "$XSAPPNAME.schedulerscope",
+         "description": "Users of my great app need this special role",
+         "grant-as-authority-to-apps": ["$XSSERVICENAME(scheduler_job)"]
+      }
+   ],
+   "role-templates": [
+      {
+         "name": "schedulerroletemplate",
+         "description": "Users of my great app need this special role",
+         "default-role-name": "Scheduler Role",
+         "scope-references": ["$XSAPPNAME.schedulerscope"]
+      }
+   ],
+   "oauth2-configuration": {
+      "token-validity": 3600,
+      "redirect-uris": [
+         "http://localhost:5000/**",
+         "http://localhost:4004/**",
+         "https://*.*.applicationstudio.cloud.sap/**",
+         "https://*.cfapps.*.hana.ondemand.com/**",
+         "https://*.authentication.*.hana.ondemand.com/**"
+      ]
+   }
+}
