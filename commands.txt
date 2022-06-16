@@ -1,0 +1,9 @@
+cf create-service jobscheduler standard scheduler_multi_job -c "{\"enable-xsuaa-support\": true}"
+
+cf create-service xsuaa application scheduler_multi_uaa -c xs-security.json
+
+cf create-service-key scheduler_multi_uaa scheduler_multi_uaa_key
+
+cf service-key scheduler_multi_uaa scheduler_multi_uaa_key
+
+cf create-service saas-registry application scheduler_multi_saas -c xs-saas.json

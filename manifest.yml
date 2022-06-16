@@ -1,31 +1,11 @@
 ---
 applications:
-- name: schedulerapprouter
-  path: ./approuter
-  memory: 128M
-  buildpacks:
-    - nodejs_buildpack
-  services:
-    - scheduler_uaa
-  env:
-    destinations: >
-      [
-          {
-              "name": "srv_api",
-              "url": "https://scheduler.cfapps.eu10-004.hana.ondemand.com/runjob",
-              "forwardAuthToken": true
-          }
-      ]
-- name: scheduler
+- name: schedulermulti
   path: ./scheduler
   memory: 128M
   buildpacks:
     - nodejs_buildpack
   services:
-    - scheduler_uaa
-    - scheduler_job
-  env:
-    SAP_JWT_TRUST_ACL: >
-      [
-        {"clientid":"*", "identityzone":"*"}
-      ]
+    - scheduler_multi_uaa
+    - scheduler_multi_saas
+    - scheduler_multi_job

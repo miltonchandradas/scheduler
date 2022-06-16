@@ -1,5 +1,5 @@
 {
-  "name": "scheduler",
+  "name": "schedulermulti",
   "version": "1.0.0",
   "description": "Scheduler demo",
   "main": "server.js",

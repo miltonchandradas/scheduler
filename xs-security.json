@@ -1,21 +1,8 @@
 {
-   "xsappname": "scheduler-team3601",
-   "tenant-mode": "dedicated",
-   "scopes": [
-      {
-         "name": "$XSAPPNAME.schedulerscope",
-         "description": "Users of my great app need this special role",
-         "grant-as-authority-to-apps": ["$XSSERVICENAME(scheduler_job)"]
-      }
-   ],
-   "role-templates": [
-      {
-         "name": "schedulerroletemplate",
-         "description": "Users of my great app need this special role",
-         "default-role-name": "Scheduler Role",
-         "scope-references": ["$XSAPPNAME.schedulerscope"]
-      }
-   ],
+   "xsappname": "scheduler-multi",
+   "tenant-mode": "shared",
+   "scopes": [],
+   "role-templates": [],
    "oauth2-configuration": {
       "token-validity": 3600,
       "redirect-uris": [

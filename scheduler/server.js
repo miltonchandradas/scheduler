@@ -1,49 +1,46 @@
 const express = require("express");
-const passport = require("passport");
-const xsenv = require("@sap/xsenv");
-const jwt_decode = require("jwt-decode");
-const JWTStrategy = require("@sap/xssec").JWTStrategy;
-
-//configure passport
-const xsuaaService = xsenv.getServices({ myXsuaa: { tag: "xsuaa" } });
-const xsuaaCredentials = xsuaaService.myXsuaa;
-const jwtStrategy = new JWTStrategy(xsuaaCredentials);
-passport.use(jwtStrategy);
-
 const app = express();
+app.use(express.json());
 
-const jwtLogger = (req, res, next) => {
-   console.log("Decoding authorization header...");
-   let authHeader = req.headers.authorization;
-   if (authHeader) {
-      let token = authHeader.substring(7);
-      let decoded = jwt_decode(token);
+const VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES);
+const JOB_CREDENTIALS = VCAP_SERVICES.jobscheduler[0].credentials;
 
-      console.log("Decoded JWT Token: ", decoded);
-   }
+/* Application Server */
 
-   next();
-};
-
-app.use(jwtLogger);
-app.use(passport.initialize());
-app.use(passport.authenticate("JWT", { session: false }));
-
-const port = process.env.PORT || 3000;
-
-app.get("/runjob", (req, res) => {
-   const MY_SCOPE = xsuaaCredentials.xsappname + ".schedulerscope";
-   if (req.authInfo.checkScope(MY_SCOPE)) {
-      res.send(
-         "The endpoint was properly called, the required scope has been found in JWT token. Finished doing something successfully"
-      );
-   } else {
-      return res.status(403).json({
-         error: "Unauthorized",
-         message:
-            "The endpoint was called by user who does not have the required scope: <scopeformyapp> ",
-      });
-   }
+app.listen(process.env.PORT, function () {
+   console.log("===> Server started");
 });
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+/* Application endpoints */
+
+app.get("/app", (req, res) => {
+   res.send(`<h1>Homepage of multitenant app</h1>`);
+});
+
+app.get("/action", (req, res) => {
+   res.send(`ACTION endpoint for jobscheduler successfully invoked.`);
+});
+
+/* Multi Tenancy callbacks */
+
+app.get("/handleDependencies", (req, res) => {
+   const dependencies = [{ xsappname: JOB_CREDENTIALS.uaa.xsappname }];
+   res.status(200).json(dependencies);
+});
+
+app.put("/handleSubscription/:myConsumer", (req, res) => {
+   console.log("Handle subscription...");
+   const subDomain = req.body.subscribedSubdomain; // e.g. customer1subdomain
+   const appHost = req.hostname; //schedulermulti.cfapps.sap.hana.ondemand.com
+   const subscriberAppURL = `https://${subDomain}-${appHost}/app`;
+
+   console.log("Subdomain: ", subDomain);
+   console.log("Host: ", appHost);
+   console.log("Subscriber URL: ", subscriberAppURL);
+
+   res.status(200).send(subscriberAppURL);
+});
+
+app.delete("/handleSubscription/:myConsumer", (req, res) => {
+   res.status(200).end("unsubscribed");
+});
