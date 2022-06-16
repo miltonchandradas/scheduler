@@ -5,5 +5,5 @@
        "getDependencies" : "https://schedulermulti.cfapps.eu10-004.hana.ondemand.com/handleDependencies",
        "onSubscription" : "https://schedulermulti.cfapps.eu10-004.hana.ondemand.com/handleSubscription/{tenantId}"
     },
-    "displayName": "Scheduler Multitenant"
+    "displayName": "Scheduler Multitenant with Job scheduler"
  }

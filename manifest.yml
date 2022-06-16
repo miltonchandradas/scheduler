@@ -1,6 +1,9 @@
 ---
 applications:
 - name: schedulermulti
+  routes:
+  - route: schedulermulti.cfapps.eu10-004.hana.ondemand.com
+  - route: team3601c1-schedulermulti.cfapps.eu10-004.hana.ondemand.com
   path: ./scheduler
   memory: 128M
   buildpacks:

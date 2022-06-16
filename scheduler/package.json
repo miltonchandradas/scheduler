@@ -1,7 +1,7 @@
 {
   "name": "schedulermulti",
   "version": "1.0.0",
-  "description": "Scheduler demo",
+  "description": "Scheduler Multi demo",
   "main": "server.js",
   "scripts": {
     "start": "node server"
@@ -11,6 +11,7 @@
   "dependencies": {
     "@sap/xsenv": "^3.3.1",
     "@sap/xssec": "^3.2.13",
+    "axios": "^0.27.2",
     "express": "^4.18.1",
     "jwt-decode": "^3.1.2",
     "passport": "^0.6.0"
