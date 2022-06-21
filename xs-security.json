@@ -1,8 +1,24 @@
 {
-   "xsappname": "scheduler-multi",
+   "xsappname": "schedulermulti",
    "tenant-mode": "shared",
-   "scopes": [],
-   "role-templates": [],
+   "scopes": [
+      {
+         "name": "$XSAPPNAME.jobschedulerscope",
+         "description": "Job Scheduler",
+         "grant-as-authority-to-apps": ["$XSSERVICENAME(schedulermulti_job)"]
+      },
+      {
+         "name": "uaa.user",
+         "description": "UAA"
+      }
+   ],
+   "role-templates": [
+      {
+         "name": "Token_Exchange",
+         "description": "UAA Token Exchange",
+         "scope-references": ["uaa.user", "$XSAPPNAME.jobschedulerscope"]
+      }
+   ],
    "oauth2-configuration": {
       "token-validity": 3600,
       "redirect-uris": [

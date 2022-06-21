@@ -9,6 +9,6 @@ applications:
   buildpacks:
     - nodejs_buildpack
   services:
-    - scheduler_multi_uaa
-    - scheduler_multi_saas
-    - scheduler_multi_job
+    - schedulermulti_uaa
+    - schedulermulti_registry
+    - schedulermulti_job

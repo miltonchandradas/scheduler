@@ -1,5 +1,5 @@
 {
-    "appId": "scheduler-multi!t131596",
+    "appId": "schedulermulti!t131596",
     "appName": "schedulermulti",
     "appUrls": {
        "getDependencies" : "https://schedulermulti.cfapps.eu10-004.hana.ondemand.com/handleDependencies",
